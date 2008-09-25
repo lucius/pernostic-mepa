@@ -1,13 +1,22 @@
+#ifndef MEPA_H_
+#define MEPA_H_
+
+
+
+#define VAZIO -1
+
+
+
+#include <fstream>
 #include <iostream>
+#include <map>
 #include <string>
 #include <vector>
 
+#include "../includes/Printer.h"
 #include "../includes/structP.h"
 
 
-
-#ifndef MEPA_H_
-#define MEPA_H_
 
 enum
 {
@@ -16,16 +25,22 @@ enum
 	rtpr, crvi, armi, cren
 };
 
+
+
 class Mepa
 {
 	public:
-		Mepa( );
+		Mepa( const char*, const char*, int, int, int );
 
+		Mepa( const char*, int, int, int );
+
+		virtual
 		~Mepa( );
 
-	protected:
+		void
+		executa( );
 
-	private:
+	protected:
 		std::vector<structP>
 		P;
 
@@ -35,11 +50,23 @@ class Mepa
 		std::vector<int>
 		D;
 
+		std::map<std::string, int>
+		labels;
+
 		int
 		i;
 
 		int
 		s;
+
+		std::ifstream
+		mArqEntrada;
+
+		Printer*
+		pRelatorio;
+
+		void
+		carregaP( );
 
 		void
 		proximaInstrucao( );
@@ -73,7 +100,6 @@ class Mepa
 
 		void
 		CMME( );
-
 
 		void
 		CMAG( );
@@ -109,10 +135,10 @@ class Mepa
 		NADA( );
 
 		void
-		DSVS( int );
+		DSVS( std::string );
 
 		void
-		DSVF( int );
+		DSVF( std::string );
 
 		void
 		INPP( );
@@ -127,7 +153,7 @@ class Mepa
 		PARA( );
 
 		void
-		CHPR( int );
+		CHPR( std::string );
 
 		void
 		ENPR( int );
