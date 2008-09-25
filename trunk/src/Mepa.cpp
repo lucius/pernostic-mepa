@@ -1,54 +1,69 @@
+#include "../includes/Mepa.h"
+
+
+
 void
-Mepa::CRCT(int vK)
+Mepa::proximaInstrucao( )
+{
+	this->i++;
+}
+
+void
+Mepa::proximaInstrucao( int vNovaPosicao )
+{
+	this->i = vNovaPosicao;
+}
+
+void
+Mepa::CRCT( int vK )
 {
 	s++;
 	M[s] = vK;
-	proximaInstrucao();
+	proximaInstrucao( );
 }
 
 void
 Mepa::CRVL( int k, int n )
 {
 	s++;
-	int a = M[D[k] + n];
-??//	M[s] = a;
-	proximaInstrucao();
+	M[s] = M[D[k] + n];
+	proximaInstrucao( );
 }
 
 void
-Mepa::SOMA()
+Mepa::SOMA( )
 {
 	M[s-1] += M[s];
 	s--;
-	proximaInstrucao();
+	proximaInstrucao( );
 }
 
 void
-Mepa::SUBT()
+Mepa::SUBT( )
 {
 	M[s-1] = M[s-1] - M[s];
 	s--;
-	proximaInstrucao();
+	proximaInstrucao( );
 }
 
 void
-Mepa::MULT()
+Mepa::MULT( )
 {
 	M[s-1] *= M[s];
 	s--;
-	proximaInstrucao();
+	proximaInstrucao( );
 }
 
 void
-Mepa::DIVI()
+Mepa::DIVI( )
 {
 	M[s-1] = M[s-1] / M[s];
 	s--;
-	proximaInstrucao();
+	proximaInstrucao( );
 }
 
 void
-Mepa::CMIG()
+Mepa::CMIG( )
 {
 	if(M[s-1] == M[s])
 	{
@@ -59,11 +74,11 @@ Mepa::CMIG()
 		M[s-1] = 0;
 	}
 	s--;
-	proximaInstrucao();
+	proximaInstrucao( );
 }
 
 void
-Mepa::CMMA()
+Mepa::CMMA( )
 {
 	if ( M[s-1] > M[s] )
 	{
@@ -74,11 +89,11 @@ Mepa::CMMA()
 		M[s-1] = 0;
 	}
 	s--;
-	proximaInstrucao();
+	proximaInstrucao( );
 }
 
 void
-Mepa::CMME()
+Mepa::CMME( )
 {
 	if(M[s-1] < M[s])
 	{
@@ -89,12 +104,12 @@ Mepa::CMME()
 		M[s-1] = 0;
 	}
 	s--;
-	proximaInstrucao();
+	proximaInstrucao( );
 }
 
 
 void
-Mepa::CMAG()
+Mepa::CMAG( )
 {
 	if ( M[s-1] >= M[s] )
 	{
@@ -105,11 +120,11 @@ Mepa::CMAG()
 		M[s-1] = 0;
 	}
 	s--;
-	proximaInstrucao();
+	proximaInstrucao( );
 }
 
 void
-Mepa::CMEG()
+Mepa::CMEG( )
 {
 	if(M[s-1] <= M[s])
 	{
@@ -120,11 +135,11 @@ Mepa::CMEG()
 		M[s-1] = 0;
 	}
 	s--;
-	proximaInstrucao();
+	proximaInstrucao( );
 }
 
 void
-Mepa::CMDG()
+Mepa::CMDG( )
 {
 	if ( M[s-1] != M[s] )
 	{
@@ -135,11 +150,11 @@ Mepa::CMDG()
 		M[s-1] = 0;
 	}
 	s--;
-	proximaInstrucao();
+	proximaInstrucao( );
 }
 
 void
-Mepa::CONJ()
+Mepa::CONJ( )
 {
 	if ( M[s-1] == 1 && M[s] == 1 )
 	{
@@ -150,11 +165,11 @@ Mepa::CONJ()
 		M[s-1] = 0;
 	}
 	s--;
-	proximaInstrucao();
+	proximaInstrucao( );
 }
 
 void
-Mepa::DISJ()
+Mepa::DISJ( )
 {
 	if(M[s-1] == 1 || M[s] == 1)
 	{
@@ -165,21 +180,21 @@ Mepa::DISJ()
 		M[s-1] = 0;
 	}
 	s--;
-	proximaInstrucao();
+	proximaInstrucao( );
 }
 
 void
-Mepa::NEGA()
+Mepa::NEGA( )
 {
 	M[s] = 1 - M[s];
-	proximaInstrucao();
+	proximaInstrucao( );
 }
 
 void
-Mepa::INVR()
+Mepa::INVR( )
 {
 	M[s] = - M[s];
-	proximaInstrucao();
+	proximaInstrucao( );
 }
 
 
@@ -188,29 +203,29 @@ Mepa::ARMZ( int k, int n )
 {
 	M[D[k]+n] = M[s];
 	s--;
-	proximaInstrucao();
+	proximaInstrucao( );
 }
 
 void
-Mepa::LEIT()
+Mepa::LEIT( )
 {
 	s++;
 	std::cin >> M[s];
-	proximaInstrucao();
+	proximaInstrucao( );
 }
 
 void
-Mepa::IMPR()
+Mepa::IMPR( )
 {
 	std::cout << M[s];
 	s--;
-	proximaInstrucao();
+	proximaInstrucao( );
 }
 
 void
-Mepa::NADA()
+Mepa::NADA( )
 {
-	proximaInstrucao();
+	proximaInstrucao( );
 }
 
 void
@@ -228,35 +243,35 @@ Mepa::DSVF( int p )
 	}
 	else
 	{
-		proximaInstrucao();
+		proximaInstrucao( );
 	}
 	s--;
 }
 
 void
-Mepa::INPP()
+Mepa::INPP( )
 {
 	this->s = -1;
 	D[0] = 0;
-	proximaInstrucao();
+	proximaInstrucao( );
 }
 
 void
 Mepa::AMEM( int m )
 {
 	s += m;
-	proximaInstrucao();
+	proximaInstrucao( );
 }
 
 void
 Mepa::DMEM( int n )
 {
 	s -= n;
-	proximaInstrucao();
+	proximaInstrucao( );
 }
 
 void
-Mepa::PARA()
+Mepa::PARA( )
 {
 
 }
@@ -265,8 +280,8 @@ void
 Mepa::CHPR( int L )
 {
 	s++;
-	M[s] = PC + 1;
-	PC = L;
+	M[s] = i + 1;
+	i = L;
 }
 
 void
@@ -275,14 +290,14 @@ Mepa::ENPR( int k )
 	s++;
 	M[s] = D[k];
 	D[k] = s + 1;
-	proximaInstrucao();
+	proximaInstrucao( );
 }
 
 void
 Mepa::RTPR( int k, int n )
 {
 	D[k] = M[s];
-	PC = M[s-1];
+	i = M[s-1];
 	s -= (n+2);
 }
 
@@ -292,7 +307,7 @@ Mepa::CRVI( int k, int n )
 {
 	s++;
 	M[s] = M[ M[D[k] + n] ];
-	proximaInstrucao();
+	proximaInstrucao( );
 }
 
 void
@@ -300,7 +315,7 @@ Mepa::ARMI( int k, int n )
 {
 	M[ M[D[k]+n] ] = M[s];
 	s--;
-	proximaInstrucao();
+	proximaInstrucao( );
 }
 
 void
@@ -308,5 +323,5 @@ Mepa::CREN( int k, int n )
 {
 	s++;
 	M[s] = D[k] + n;
-	proximaInstrucao();
+	proximaInstrucao( );
 }
