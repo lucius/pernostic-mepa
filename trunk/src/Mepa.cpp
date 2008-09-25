@@ -15,7 +15,6 @@ Mepa::Mepa( const char* vNomeEntrada, int tamD, int tamP, int tamM )
 	std::cout << "boga";
 	this->pRelatorio = new Printer( vNomeEntrada );
 
-	/* abre arquivo de entrada */
 	this->mArqEntrada.open( vNomeEntrada, std::fstream::in );
 	this->mArqEntrada.seekg( 0, std::ios_base::beg );
 }
@@ -26,25 +25,20 @@ Mepa::Mepa( const char* vNomeEntrada, const char* vNomeSaida, int tamD, int tamP
 	P.resize(tamP);
 	M.resize(tamM,VAZIO);
 
-	/* seta ponteiro para nulo */
 	this->i =  0;
 	this->s = -1;
 
 	this->pRelatorio = new Printer( vNomeEntrada, vNomeSaida );
 
-	/* abre arquivo de entrada */
 	this->mArqEntrada.open( vNomeEntrada, std::fstream::in );
 	this->mArqEntrada.seekg( 0, std::ios_base::beg );
-	// lembrar de passar o nome do arquivo de saida para a classe de imprimir a merda la
 }
 
 Mepa::~Mepa()
 {
-	/* fecha arquivo de entrada */
 	this->mArqEntrada.close();
 
-	delete
-	this->pRelatorio;
+	delete this->pRelatorio;
 }
 
 void Mepa::executa( )

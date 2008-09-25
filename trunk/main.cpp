@@ -1,6 +1,8 @@
 #include <iostream>
-#include <string.h>
-#include "includes/Mepa.h"
+#include <string>
+
+
+#include "./includes/Mepa.h"
 
 int main(int argc, char *argv[])
 {
@@ -28,13 +30,10 @@ int main(int argc, char *argv[])
 	Mepa*
 	mepa;
 
-	/* iterador comeca em 1 pq o argv[0] eh o nome do programa */
 	for ( int i = 1; i < argc; i++ )
 	{
-		/* verifica se é opcao */
 		if ( argv[i][0] == '-' )
 		{
-			/* verifica qual opcao */
 			switch ( argv[i][1] )
 			{
 				case 'J':
@@ -95,11 +94,17 @@ int main(int argc, char *argv[])
 					tamM = atoi(argv[i]);
 					break;
 
+				case '@':
+					std::cout
+					<< "Pedro de Lari!" << std::endl;
+					return 0;
+
 				case 'I':
 					std::cout
 					<< "Alunos:" << std::endl
-					<< '\t' << "Leandro A. Boscariol" << std::endl
-					<< '\t' << "Lucas B. Gameiro" << std::endl;
+					<< '\t' << "Evandro Couto Mantese" << std::endl
+					<< '\t' << "Marcus Vinicius Ventura Bortolotti" << std::endl
+					<< '\t' << "Rafael de Paula Herrera" << std::endl;
 					return 0;
 
 				case '?':
@@ -108,7 +113,7 @@ int main(int argc, char *argv[])
 					<< "Exemplo: mepa -D 5 foo.mep" << std::endl
 					<< std::endl
 					<< "Opcoes:" << std::endl
-					<< "-J" << "\t" << "Abre janela e mostra execucao do programa" << std::endl
+					<< "-@" << "\t" << "|o|" << std::endl
 					<< "-D n" << "\t" << "Numero n de registradores base" << std::endl
 					<< "-P n" << "\t" << "Tamanho n em palavras de 16 bits da memoria de programa" << std::endl
 					<< "-M n" << "\t" << "Tamanho n em palavras de 16 bits da memoria de dados" << std::endl
@@ -127,7 +132,6 @@ int main(int argc, char *argv[])
 							"Digite 'mepa -?' para a lista completa de opcoes." << std::endl;
 						return 0;
 					}
-					/* O construtor da MEPA recebera recebera o argv[numArqSaida] */
 					numDoArqSaida = i;
 					break;
 
@@ -140,9 +144,8 @@ int main(int argc, char *argv[])
 		}
 		else
 		{
-			if ( 1 )// verificar se o parametro é do tipo *.mep e iniciar a mepa.
+			if ( 1 )
 			{
-				/* verifica se não ha parametros sobrando */
 				if ( argc != i + 1 )
 				{
 					std::cout << "Numero excedente de parametros. " <<
@@ -161,7 +164,6 @@ int main(int argc, char *argv[])
 		}
 	}
 
-	/* alocar a mepa! */
 	if( numDoArqSaida == 0 )
 	{
 		mepa = new Mepa( argv[numDoArqEntrada], tamD, tamP, tamM );
@@ -171,12 +173,9 @@ int main(int argc, char *argv[])
 		mepa = new Mepa( argv[numDoArqEntrada], argv[numDoArqSaida], tamD, tamP, tamM );
 	}
 
-	/* iniciar mepa */
 	mepa->executa();
 
-	/* desaloca a mepa */
-	delete
-	mepa;
+	delete mepa;
 
 	return 0;
 }
