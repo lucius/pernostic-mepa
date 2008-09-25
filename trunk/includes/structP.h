@@ -1,10 +1,24 @@
 #ifndef STRUCTP_H_
 #define STRUCTP_H_
 
-struct structP
+
+
+#include <vector>
+#include <string>
+
+
+
+struct
+structP
 {
-	int comando;
-	std::vector<int> argumentos;
+	std::string
+	label;
+
+	int
+	comando;
+
+	std::vector<int>
+	argumentos;
 };
 
 #endif /* STRUCTP_H_ */
