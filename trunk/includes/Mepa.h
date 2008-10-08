@@ -68,6 +68,9 @@ class Mepa
 		void
 		carregaP( );
 
+		const int
+		convertePrimeiroArgumento( std::string );
+
 		void
 		proximaInstrucao( );
 
