@@ -12,7 +12,6 @@ Mepa::Mepa( const char* vNomeEntrada, int tamD, int tamP, int tamM )
 	this->i =  0;
 	this->s  = -1;
 
-	std::cout << "boga";
 	this->pRelatorio = new Printer( vNomeEntrada );
 
 	this->mArqEntrada.open( vNomeEntrada, std::fstream::in );
@@ -46,10 +45,21 @@ void Mepa::executa( )
 	bool
 	Para = false;
 
+	std::string
+	teste;
+
 	this->carregaP( );
 
 	while( !Para )
 	{
+//		std::cout << "*************************************" << std::endl;
+//		std::cout << P[this->i].comando << std::endl;
+//		std::cout << P[this->i].label << std::endl;
+//		std::cout << P[this->i].argumentos[0] << std::endl;
+//		std::cout << P[this->i].argumentos[1] << std::endl;
+//		std::cout << "*************************************" << std::endl << std::endl;
+//
+//		std::cin >> teste;
 		switch ( P[this->i].comando )
 		{
 			case crct:
@@ -151,6 +161,7 @@ void Mepa::executa( )
 				break;
 		}
 	}
+	std::cout << std::endl << std::endl << "End ^^" << std::endl;
 }
 
 void
@@ -165,201 +176,220 @@ Mepa::carregaP( )
 	int
 	arg;
 
-	structP
-	tempStruct;
-
-	while ( mArqEntrada.good() && linha <= P.size() )
+	while ( (this->mArqEntrada.good()) && (linha <= P.size()) )
 	{
-		mArqEntrada >> linhaExtraida;
+		linhaExtraida.clear( );
 
-		std::cout << linhaExtraida;
+		this->mArqEntrada >> linhaExtraida;
+
+//		std::cout << "*************************************" << std::endl;
+//		std::cout << linha+1 << " - " << linhaExtraida << std::endl;
 
 		if ( linhaExtraida == "AMEM" )
 		{
-			tempStruct.comando = amem;
+			P[linha].comando = amem;
 
 			this->mArqEntrada >> arg;
-			tempStruct.argumentos.push_back( arg );
+			P[linha].argumentos.push_back( arg );
 		}
 		else if ( linhaExtraida == "ARMI" )
 		{
-			tempStruct.comando = armi;
+			P[linha].comando = armi;
 
+			this->mArqEntrada >> linhaExtraida;
+			P[linha].argumentos.push_back( this->convertePrimeiroArgumento( linhaExtraida ) );
 			this->mArqEntrada >> arg;
-			tempStruct.argumentos.push_back( arg );
-			this->mArqEntrada >> arg;
-			tempStruct.argumentos.push_back( arg );
+			P[linha].argumentos.push_back( arg );
 		}
 		else if ( linhaExtraida == "ARMZ" )
 		{
-			tempStruct.comando = armz;
+			P[linha].comando = armz;
 
+			this->mArqEntrada >> linhaExtraida;
+			P[linha].argumentos.push_back( this->convertePrimeiroArgumento( linhaExtraida ) );
 			this->mArqEntrada >> arg;
-			tempStruct.argumentos.push_back( arg );
-			this->mArqEntrada >> arg;
-			tempStruct.argumentos.push_back( arg );
+			P[linha].argumentos.push_back( arg );
 		}
 		else if ( linhaExtraida == "CHPR" )
 		{
-			tempStruct.comando = chpr;
+			P[linha].comando = chpr;
 
-			this->mArqEntrada >> tempStruct.label;
+			this->mArqEntrada >> linhaExtraida;
+			P[linha].label = linhaExtraida;
 		}
 		else if ( linhaExtraida == "CMAG" )
 		{
-			tempStruct.comando = cmag;
+			P[linha].comando = cmag;
 		}
 		else if ( linhaExtraida == "CMDG" )
 		{
-			tempStruct.comando = cmdg;
+			P[linha].comando = cmdg;
 		}
 		else if ( linhaExtraida == "CMEG" )
 		{
-			tempStruct.comando = cmeg;
+			P[linha].comando = cmeg;
 		}
 		else if ( linhaExtraida == "CMIG" )
 		{
-			tempStruct.comando = cmig;
+			P[linha].comando = cmig;
 		}
 		else if ( linhaExtraida == "CMMA" )
 		{
-			tempStruct.comando = cmma;
+			P[linha].comando = cmma;
 		}
 		else if ( linhaExtraida == "CMME" )
 		{
-			tempStruct.comando = cmme;
+			P[linha].comando = cmme;
 		}
 		else if ( linhaExtraida == "CONJ" )
 		{
-			tempStruct.comando = conj;
+			P[linha].comando = conj;
 		}
 		else if ( linhaExtraida == "CRCT" )
 		{
-			tempStruct.comando = crct;
+			P[linha].comando = crct;
 
 			this->mArqEntrada >> arg;
-			tempStruct.argumentos.push_back( arg );
+			P[linha].argumentos.push_back( arg );
 		}
 		else if ( linhaExtraida == "CREN" )
 		{
-			tempStruct.comando = cren;
+			P[linha].comando = cren;
 
+			this->mArqEntrada >> linhaExtraida;
+			P[linha].argumentos.push_back( this->convertePrimeiroArgumento( linhaExtraida ) );
 			this->mArqEntrada >> arg;
-			tempStruct.argumentos.push_back( arg );
-			this->mArqEntrada >> arg;
-			tempStruct.argumentos.push_back( arg );
+			P[linha].argumentos.push_back( arg );
 		}
 		else if ( linhaExtraida == "CRVI" )
 		{
-			tempStruct.comando = crvi;
+			P[linha].comando = crvi;
 
+			this->mArqEntrada >> linhaExtraida;
+			P[linha].argumentos.push_back( this->convertePrimeiroArgumento( linhaExtraida ) );
 			this->mArqEntrada >> arg;
-			tempStruct.argumentos.push_back( arg );
-			this->mArqEntrada >> arg;
-			tempStruct.argumentos.push_back( arg );
+			P[linha].argumentos.push_back( arg );
 		}
 		else if ( linhaExtraida == "CRVL" )
 		{
-			tempStruct.comando = crvl;
+			P[linha].comando = crvl;
 
+			this->mArqEntrada >> linhaExtraida;
+			P[linha].argumentos.push_back( this->convertePrimeiroArgumento( linhaExtraida ) );
 			this->mArqEntrada >> arg;
-			tempStruct.argumentos.push_back( arg );
-			this->mArqEntrada >> arg;
-			tempStruct.argumentos.push_back( arg );
+			P[linha].argumentos.push_back( arg );
 		}
 		else if ( linhaExtraida == "DISJ" )
 		{
-			tempStruct.comando = disj;
+			P[linha].comando = disj;
 		}
 		else if ( linhaExtraida == "DIVI" )
 		{
-			tempStruct.comando = divi;
+			P[linha].comando = divi;
 		}
 		else if ( linhaExtraida == "DMEM" )
 		{
-			tempStruct.comando = dmem;
+			P[linha].comando = dmem;
 
 			this->mArqEntrada >> arg;
-			tempStruct.argumentos.push_back( arg );
+			P[linha].argumentos.push_back( arg );
 		}
 		else if ( linhaExtraida == "DSVF" )
 		{
-			tempStruct.comando = dsvf;
+			P[linha].comando = dsvf;
 
-			this->mArqEntrada >> tempStruct.label;
+			this->mArqEntrada >> linhaExtraida;
+			P[linha].label = linhaExtraida;
 		}
 		else if ( linhaExtraida == "DSVS" )
 		{
-			tempStruct.comando = dsvs;
+			P[linha].comando = dsvs;
 
-			this->mArqEntrada >> tempStruct.label;
+			this->mArqEntrada >> linhaExtraida;
+			P[linha].label = linhaExtraida;
 		}
 		else if ( linhaExtraida == "ENPR" )
 		{
-			tempStruct.comando = enpr;
+			P[linha].comando = enpr;
 
 			mArqEntrada >> arg;
-			tempStruct.argumentos.push_back( arg );
+			P[linha].argumentos.push_back( arg );
 		}
 		else if ( linhaExtraida == "IMPR" )
 		{
-			tempStruct.comando = impr;
+			P[linha].comando = impr;
 		}
 		else if ( linhaExtraida == "INPP" )
 		{
-			tempStruct.comando = inpp;
+			P[linha].comando = inpp;
 		}
 		else if ( linhaExtraida == "INVR" )
 		{
-			tempStruct.comando = invr;
+			P[linha].comando = invr;
 		}
 		else if ( linhaExtraida == "LEIT" )
 		{
-			tempStruct.comando = leit;
+			P[linha].comando = leit;
 		}
 		else if ( linhaExtraida == "MULT" )
 		{
-			tempStruct.comando = mult;
+			P[linha].comando = mult;
 		}
 		else if ( linhaExtraida == "NADA" )
 		{
-			tempStruct.comando = nada;
+			P[linha].comando = nada;
 		}
 		else if ( linhaExtraida == "NEGA" )
 		{
-			tempStruct.comando = nega;
+			P[linha].comando = nega;
 		}
 		else if ( linhaExtraida == "PARA" )
 		{
-			tempStruct.comando = para;
+			P[linha].comando = para;
 		}
 		else if ( linhaExtraida == "RTPR" )
 		{
-			tempStruct.comando = rtpr;
+			P[linha].comando = rtpr;
 
+			this->mArqEntrada >> linhaExtraida;
+			P[linha].argumentos.push_back( this->convertePrimeiroArgumento( linhaExtraida ) );
 			this->mArqEntrada >> arg;
-			tempStruct.argumentos.push_back( arg );
-			this->mArqEntrada >> arg;
-			tempStruct.argumentos.push_back( arg );
+			P[linha].argumentos.push_back( arg );
 		}
 		else if ( linhaExtraida == "SOMA" )
 		{
-			tempStruct.comando = soma;
+			P[linha].comando = soma;
 		}
 		else if ( linhaExtraida == "SUBT" )
 		{
-			tempStruct.comando = subt;
+			P[linha].comando = subt;
 		}
 		else
 		{
 			this->labels[linhaExtraida] = linha;
+			linha--;
 		}
 
-		P[linha] = tempStruct;
-		linha++;
+//		std::cout << "-------------------------------------" << std::endl;
+//		std::cout << P[linha].comando << std::endl;
+//		std::cout << P[linha].label << std::endl;
+//		std::cout << P[linha].argumentos[0] << std::endl;
+//		std::cout << P[linha].argumentos[1] << std::endl;
+//		std::cout << "*************************************" << std::endl << std::endl;
 
-		std::cout << tempStruct.comando;
+		linha++;
 	}
+}
+
+const int
+Mepa::convertePrimeiroArgumento( std::string vString )
+{
+	int
+	valorInteiro;
+
+	valorInteiro = atoi( vString.substr(0, (vString.size()-1)).c_str() );
+
+	return valorInteiro;
 }
 
 void
@@ -389,7 +419,7 @@ Mepa::CRVL( int k, int n )
 	s++;
 	M[s] = M[ D[k] + n ];
 
-	proximaInstrucao( );
+	this->proximaInstrucao( );
 }
 
 void
@@ -398,7 +428,7 @@ Mepa::SOMA( )
 	M[s - 1] += M[s];
 	s--;
 
-	proximaInstrucao( );
+	this->proximaInstrucao( );
 }
 
 void
@@ -407,7 +437,7 @@ Mepa::SUBT( )
 	M[s - 1] = M[s - 1] - M[s];
 	s--;
 
-	proximaInstrucao( );
+	this->proximaInstrucao( );
 }
 
 void
@@ -416,7 +446,7 @@ Mepa::MULT( )
 	M[s - 1] *= M[s];
 	s--;
 
-	proximaInstrucao( );
+	this->proximaInstrucao( );
 }
 
 void
@@ -425,7 +455,7 @@ Mepa::DIVI( )
 	M[s - 1] = M[s - 1] / M[s];
 	s--;
 
-	proximaInstrucao( );
+	this->proximaInstrucao( );
 }
 
 void
@@ -441,7 +471,7 @@ Mepa::CMIG( )
 	}
 	s--;
 
-	proximaInstrucao( );
+	this->proximaInstrucao( );
 }
 
 void
@@ -457,7 +487,7 @@ Mepa::CMMA( )
 	}
 	s--;
 
-	proximaInstrucao( );
+	this->proximaInstrucao( );
 }
 
 void
@@ -473,7 +503,7 @@ Mepa::CMME( )
 	}
 	s--;
 
-	proximaInstrucao( );
+	this->proximaInstrucao( );
 }
 
 
@@ -490,7 +520,7 @@ Mepa::CMAG( )
 	}
 	s--;
 
-	proximaInstrucao( );
+	this->proximaInstrucao( );
 }
 
 void
@@ -506,7 +536,7 @@ Mepa::CMEG( )
 	}
 	s--;
 
-	proximaInstrucao( );
+	this->proximaInstrucao( );
 }
 
 void
@@ -522,7 +552,7 @@ Mepa::CMDG( )
 	}
 	s--;
 
-	proximaInstrucao( );
+	this->proximaInstrucao( );
 }
 
 void
@@ -538,7 +568,7 @@ Mepa::CONJ( )
 	}
 	s--;
 
-	proximaInstrucao( );
+	this->proximaInstrucao( );
 }
 
 void
@@ -554,7 +584,7 @@ Mepa::DISJ( )
 	}
 	s--;
 
-	proximaInstrucao( );
+	this->proximaInstrucao( );
 }
 
 void
@@ -562,7 +592,7 @@ Mepa::NEGA( )
 {
 	M[s] = 1 - M[s];
 
-	proximaInstrucao( );
+	this->proximaInstrucao( );
 }
 
 void
@@ -570,7 +600,7 @@ Mepa::INVR( )
 {
 	M[s] = - M[s];
 
-	proximaInstrucao( );
+	this->proximaInstrucao( );
 }
 
 
@@ -580,7 +610,7 @@ Mepa::ARMZ( int k, int n )
 	M[D[k]+n] = M[s];
 	s--;
 
-	proximaInstrucao( );
+	this->proximaInstrucao( );
 }
 
 void
@@ -589,7 +619,7 @@ Mepa::LEIT( )
 	s++;
 	std::cin >> M[s];
 
-	proximaInstrucao( );
+	this->proximaInstrucao( );
 }
 
 void
@@ -598,19 +628,19 @@ Mepa::IMPR( )
 	std::cout << M[s];
 	s--;
 
-	proximaInstrucao( );
+	this->proximaInstrucao( );
 }
 
 void
 Mepa::NADA( )
 {
-	proximaInstrucao( );
+	this->proximaInstrucao( );
 }
 
 void
 Mepa::DSVS( std::string label )
 {
-	proximaInstrucao( this->labels[label] );
+	this->proximaInstrucao( this->labels[label] );
 }
 
 void
@@ -618,11 +648,11 @@ Mepa::DSVF( std::string label )
 {
 	if(M[s] == 0)
 	{
-		proximaInstrucao( this->labels[label] );
+		this->proximaInstrucao( this->labels[label] );
 	}
 	else
 	{
-		proximaInstrucao( );
+		this->proximaInstrucao( );
 	}
 	s--;
 }
@@ -633,7 +663,7 @@ Mepa::INPP( )
 	this->s = -1;
 	D[0]    = 0;
 
-	proximaInstrucao( );
+	this->proximaInstrucao( );
 }
 
 void
@@ -641,7 +671,7 @@ Mepa::AMEM( int m )
 {
 	s += m;
 
-	proximaInstrucao( );
+	this->proximaInstrucao( );
 }
 
 void
@@ -649,7 +679,7 @@ Mepa::DMEM( int n )
 {
 	s -= n;
 
-	proximaInstrucao( );
+	this->proximaInstrucao( );
 }
 
 void
@@ -673,7 +703,7 @@ Mepa::ENPR( int k )
 	M[s] = D[k];
 	D[k] = s + 1;
 
-	proximaInstrucao( );
+	this->proximaInstrucao( );
 }
 
 void
@@ -691,7 +721,7 @@ Mepa::CRVI( int k, int n )
 	s++;
 	M[s] = M[ M[ D[k] + n ] ];
 
-	proximaInstrucao( );
+	this->proximaInstrucao( );
 }
 
 void
@@ -700,7 +730,7 @@ Mepa::ARMI( int k, int n )
 	M[ M[ D[k] + n ] ] = M[s];
 	s--;
 
-	proximaInstrucao( );
+	this->proximaInstrucao( );
 }
 
 void
@@ -709,5 +739,5 @@ Mepa::CREN( int k, int n )
 	s++;
 	M[s] = D[k] + n;
 
-	proximaInstrucao( );
+	this->proximaInstrucao( );
 }
